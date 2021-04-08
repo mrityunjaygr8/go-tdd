@@ -1,0 +1,24 @@
+# Go
+# Build your Go project.
+# Add steps that test, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/go
+
+trigger:
+- master
+
+- task: GoTool@0
+  inputs:
+    version: '1.16'
+
+- task: Go@0
+  inputs:
+    command: 'get'
+
+- task: Go@0
+  inputs:
+    command: 'build'
+
+- task: Go@0
+  inputs:
+    command: 'test'
+    arguments: '-v'
