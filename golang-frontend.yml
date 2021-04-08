@@ -6,6 +6,7 @@
 trigger:
 - master
 
+steps:
 - task: GoTool@0
   inputs:
     version: '1.16'
