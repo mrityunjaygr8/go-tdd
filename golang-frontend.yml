@@ -17,7 +17,7 @@ steps:
 - task: Go@0
   inputs:
     command: 'get'
-    argument: '-d'
+    arguments: '-d'
 
 - task: Go@0
   inputs:
@@ -34,4 +34,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-     artifactName: drop
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(APP_NAME)'
+    ArtifactName: '$(APP_NAME)'
+    publishLocation: 'Container'
