@@ -17,6 +17,11 @@ type PlayerServer struct {
 
 func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
+	router.Handle("/league", http.HandlerFunc(p.leagueHandler))
+func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+}
+
 	switch r.Method {
 	case http.MethodPost:
 		p.processWin(w, player)
