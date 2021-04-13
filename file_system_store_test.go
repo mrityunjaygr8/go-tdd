@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -14,7 +13,7 @@ func TestFileSystemStore(t *testing.T) {
 			{"Name": "Chris", "Wins": 17}]`)
 		defer cleanDatabase()
 
-		store := FileSystemPlayerStore{database}
+		store := NewFileSystemPlayerStore(database)
 
 		got := store.GetLeague()
 
@@ -36,7 +35,7 @@ func TestFileSystemStore(t *testing.T) {
 		]`)
 		defer cleanDatabase()
 
-		store := FileSystemPlayerStore{database: database}
+		store := NewFileSystemPlayerStore(database)
 
 		got := store.GetPlayerScore("Chris")
 		want := 17
@@ -51,7 +50,7 @@ func TestFileSystemStore(t *testing.T) {
 		]`)
 		defer cleanDatabase()
 
-		store := FileSystemPlayerStore{database: database}
+		store := NewFileSystemPlayerStore(database)
 
 		store.RecordWin("Cleo")
 
@@ -68,7 +67,7 @@ func TestFileSystemStore(t *testing.T) {
 		]`)
 		defer cleanDatabase()
 
-		store := FileSystemPlayerStore{database: database}
+		store := NewFileSystemPlayerStore(database)
 
 		store.RecordWin("Pepper")
 
@@ -87,7 +86,7 @@ func assertScoreEquals(t testing.TB, got, want int) {
 	}
 }
 
-func createTempFile(t testing.TB, initialData string) (io.ReadWriteSeeker, func()) {
+func createTempFile(t testing.TB, initialData string) (*os.File, func()) {
 	t.Helper()
 
 	tmpFile, err := ioutil.TempFile("", "db")
